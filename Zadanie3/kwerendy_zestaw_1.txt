@@ -29,5 +29,55 @@ foreign key (pracownik) references pracownik(id_pracownika) on delete set null);
 alter table zadanie modify column priorytet enum('normalny', 'wysoki', 'niski') default 'normalny';
 
 3.
+insert into zadanie (nazwa_zadania, priorytet, opis, pracownik) values 
+('Obsluga taczki', 'wysoki', 'Profesjonalna obsluga pojazdu jednokolowego', 2),
+('Sprzedaz', 'normalny', 'Wciskanie klientom kitu', 1),
+('Odbior zamowien', 'niski', 'kontrola odbieranych zamowien', 3);
+
+Zadanie 3.
+
+1.
+create table projekt (
+id_projektu int primary key auto_increment,
+nazwa_projektu varchar(150),
+data_rozpoczecia date,
+data_zakonczenia date);
+
+2.
+alter table projekt add (menadzer_projektu int, foreign key (menadzer_projektu) references pracownik(id_pracownika));
+
+3.
+insert into projekt (nazwa_projektu, data_rozpoczecia, data_zakonczenia, menadzer_projektu) values 
+('kon trojanski', '2025-12-22', null, 1),
+('koparka', '2011-09-11', '2012-07-09', 2);
+
+4.
+alter table zadanie add (projekt int, foreign key (projekt) references projekt(id_projektu) on delete cascade);
+
+5.
+update zadanie set projekt = 2 where id_zadania = 3;
+
+Zadanie 4.
+
+1.
+create table sprint ( 
+id_sprintu int primary key auto_increment,
+numer_sprintu int unsigned, 
+data_rozpoczecia date,
+data_zakonczenia date);
+
+2.
+alter table zadanie add (sprint int, foreign key (sprint) references sprint(id_sprintu) on delete set null);
+
+3.
+insert into sprint (numer_sprintu, data_rozpoczecia, data_zakonczenia) values ('1', '2024-03-01', '2024-03-11');
+update zadanie set sprint = 1 where id_zadania in (1,2);
+
+Zadanie 5.
+
+1.
+
+
+
 
 
