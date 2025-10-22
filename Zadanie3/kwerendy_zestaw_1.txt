@@ -1,0 +1,33 @@
+Zadanie 1.
+
+1.
+create table pracownik (id_pracownika int auto_increment primary key);
+alter table pracownik add (imie varchar(40) not null);
+alter table pracownik add (nazwisko varchar(60) not null);
+alter table pracownik add (data_urodzenia date not null);
+
+2.
+insert into pracownik (imie, nazwisko, data_urodzenia) values 
+('Igor', 'Szatkowski', '2005-07-09'),
+('Zuzia', 'Szatkowska', '1999-06-24'),
+('Nina', 'Jackiewicz', '1994-11-13');
+
+3.
+update pracownik set data_urodzenia = '1999-07-24' where imie = 'Zuzia';
+
+Zadanie 2.
+
+1.
+create table zadanie (id_zadania int  primary key auto_increment,
+nazwa_zadania varchar(150) not null,
+priorytet enum('normalny', 'wysoki', 'niski'),
+opis longtext,
+pracownik int,
+foreign key (pracownik) references pracownik(id_pracownika) on delete set null);
+
+2.
+alter table zadanie modify column priorytet enum('normalny', 'wysoki', 'niski') default 'normalny';
+
+3.
+
+
