@@ -76,6 +76,16 @@ update zadanie set sprint = 1 where id_zadania in (1,2);
 Zadanie 5.
 
 1.
+create table status (
+id_statusu int primary key auto_increment,
+nazwa_statusu varchar(20));
+
+2.
+insert into status (nazwa_statusu) values ('nowy'), ('w trakcie'), ('zakonczony');
+
+3.
+
+
 
 
 
