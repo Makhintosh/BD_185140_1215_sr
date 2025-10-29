@@ -84,10 +84,17 @@ nazwa_statusu varchar(20));
 insert into status (nazwa_statusu) values ('nowy'), ('w trakcie'), ('zakonczony');
 
 3.
+create table zadanie_has_status (
+id_zdarzenia int primary key auto_increment,
+id_zadania int not null,
+id_statusu int not null,
+data_zdarzenia Datetime default current_timestamp,
+foreign key (id_zadania) references zadanie(id_zadania),
+foreign key (id_statusu) references status(id_statusu));
 
+4.
+insert into zadanie_has_status (id_zadania, id_statusu) values (1, 1), (2, 2), (3, 3);
 
-
-
-
-
-
+5.
+alter table zadanie drop foreign key zadanie_ibfk_3;
+drop table sprint;
