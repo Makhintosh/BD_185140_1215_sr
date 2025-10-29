@@ -1,0 +1,79 @@
+Zad 1.
+
+1.
+alter table zadanie drop constraint zadanie_ibfk_1;
+alter table projekt drop constraint projekt_ibfk_1;
+
+2.
+alter table pracownik modify id_pracownika int not null;
+alter table pracownik drop PRIMARY KEY;
+
+3.
+alter table pracownik add primary key (id_pracownika);
+
+4.
+alter table zadanie add foreign key (pracownik) references pracownik(id_pracownika) on delete set null;
+alter table projekt add foreign key (menadzer_projektu) references pracownik(id_pracownika);
+
+Zad 2.
+
+1.
+alter table zadanie add godziny_szacowane INTEGER default 8;
+
+2.
+update zadanie set godziny_szacowane = 12 where id_zadania=1;
+update zadanie set godziny_szacowane = 4 where id_zadania=2;
+
+3.
+alter table zadanie alter column godziny_szacowane set default 6;
+
+4.
+insert into zadanie (nazwa_zadania, opis) values ('smieciara', 'obsluga smieciary');
+select * from zadanie where nazwa_zadania = 'smieciara';
+
++------------+---------------+-----------+-------------------+-----------+---------+--------+-------------------+
+| id_zadania | nazwa_zadania | priorytet | opis              | pracownik | projekt | sprint | godziny_szacowane |
++------------+---------------+-----------+-------------------+-----------+---------+--------+-------------------+
+|          4 | smieciara     | normalny  | obsluga smieciary |      NULL |    NULL |   NULL |                 6 |
++------------+---------------+-----------+-------------------+-----------+---------+--------+-------------------+
+
+delete from zadanie where nazwa_zadania = 'smieciara';
+
+Zad 3.
+
+1.
+alter table projekt add column opis_projektu varchar(50);
+
+2.
+alter table projekt modify column opis_projektu varchar(200);
+
+3.
+update projekt set opis_projektu = 'MVP' where id_projektu = 1;
+update projekt set opis_projektu = 'pilne' where id_projektu = 2;
+
+4.
+alter table projekt drop column opis_projektu;
+
+Zad 4.
+
+1.
+alter table zadanie drop constraint zadanie_ibfk_2;
+
+2.
+alter table zadanie add foreign key (projekt) references projekt(id_projektu) on delete set null;
+
+3.
+delete from projekt where id_projektu=1;
+
+4.
+select * from zadanie where projekt is null;
++------------+----------------+-----------+---------------------------------------------+-----------+---------+--------+-------------------+
+| id_zadania | nazwa_zadania  | priorytet | opis                                        | pracownik | projekt | sprint | godziny_szacowane |
++------------+----------------+-----------+---------------------------------------------+-----------+---------+--------+-------------------+
+|          1 | Obsluga taczki | wysoki    | Profesjonalna obsluga pojazdu jednokolowego |         2 |    NULL |      1 |                12 |
+|          2 | Sprzedaz       | normalny  | Wciskanie klientom kitu                     |         1 |    NULL |      1 |                 4 |
++------------+----------------+-----------+---------------------------------------------+-----------+---------+--------+-------------------+
+
+
+
+
